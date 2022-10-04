@@ -18,10 +18,10 @@
   border-radius: 5px;
 }
 
-.App {
+.hex-color-game {
   width: 100%;
 }
-.App button {
+.hex-color-game button {
   font-family: "Courier New", Courier, monospace;
   font-weight: 600;
   flex-basis: 48%;
@@ -30,7 +30,7 @@
   border-radius: 7px;
 }
 
-.App h1 {
+.hex-color-game h1 {
   margin-top: 0;
 }
 
@@ -48,8 +48,8 @@
   font-weight: 600;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.4);
-  background: rgba(255, 255, 255, 0.5);
+  /* background: rgba(0, 0, 0, 0.4); */
+  background: rgba(255, 255, 255, 0.8);
   padding: 12px 24px;
   border-radius: 7px;
 }
@@ -67,13 +67,18 @@
   color: rgb(99, 21, 87);
 }
 
+.gameover button {
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
 @media screen and (min-width: 482px) {
-  .App button {
+  .hex-color-game button {
     flex-basis: auto;
   }
 }
 @media screen and (min-width: 768px) {
-  .App {
+  .hex-color-game {
     max-width: 440px;
   }
 }

@@ -9,116 +9,153 @@ const generateRandomHexColor = () =>
     .toString(16)
     .padEnd(6, "0")}`;
 
-enum Status {
-  Started,
-  GameOver,
-}
-enum Result {
-  Correct,
-  Wrong,
+interface Game {
+  started: boolean;
+  correct: boolean;
+  result: boolean | undefined;
+  disabled: boolean;
+  guesses: number;
+  score: number;
+  color: string;
+  average: number;
 }
 
 function App() {
-  const COLOR_GUESSES = 3;
-  const [color, setColor] = useState("");
+  const COLOR_GUESSES = 10;
+  const [game, setGame] = useState<Game>({
+    started: true,
+    correct: false,
+    result: undefined,
+    disabled: false,
+    guesses: 0,
+    score: 0,
+    color: "",
+    average: 0,
+  });
+
   const [answers, setAnswers] = useState<string[]>([]);
-  const [status, setStatus] = useState<Status | undefined>(undefined);
-  const [result, setResult] = useState<Result | undefined>(undefined);
-  const [score, setScore] = useState<number>(0);
-  const [guesses, setGuesses] = useState<number>(0);
-  const [averageCorrect, setAverageCorrect] = useState<number>(0);
   const [parent] = useAutoAnimate<HTMLDivElement>();
 
   const generateColors = () => {
-    if (status === Status.GameOver) return;
-    const actualColor = generateRandomHexColor();
-    setColor(actualColor);
-    setAnswers(
-      [
-        actualColor,
-        generateRandomHexColor(),
-        generateRandomHexColor(),
-        generateRandomHexColor(),
-      ].sort(() => 0.5 - Math.random())
-    );
-    setResult(undefined);
+    if (game.score < COLOR_GUESSES - 1) {
+      const actualColor = generateRandomHexColor();
+      setGame((game) => ({
+        ...game,
+        color: actualColor,
+        result: undefined,
+        disabled: false,
+      }));
+      setAnswers(
+        [
+          actualColor,
+          generateRandomHexColor(),
+          generateRandomHexColor(),
+          generateRandomHexColor(),
+        ].sort(() => 0.5 - Math.random())
+      );
+    } else {
+      setGame((game) => ({ ...game, started: false, disabled: true }));
+    }
   };
 
   useEffect(() => {
-    setStatus(Status.Started);
     generateColors();
   }, []);
 
   useEffect(() => {
-    setAverageCorrect(guesses === 0 ? 0 : Math.round((score / guesses) * 100));
-  }, [guesses]);
+    setGame((game) => ({
+      ...game,
+      average:
+        game.guesses === 0 ? 0 : Math.round((game.score / game.guesses) * 100),
+    }));
+  }, [game.guesses, game.color]);
 
   function handleAnswersClicked(answer: string) {
-    const buttons = parent.current?.querySelectorAll("button");
-    if (status === Status.GameOver) {
-      buttons?.forEach((button) => {
-        button.setAttribute("disabled", "true");
-      });
-      return;
-    }
-    if (answer === color) {
-      setResult(Result.Correct);
-      let currentScore = score + 1;
-      setScore(currentScore);
+    if (answer === game.color) {
+      setGame((game) => ({
+        ...game,
+        correct: true,
+        result: true,
+        guesses: game.guesses + 1,
+        score: game.score + 1,
+        disabled: true,
+      }));
       setTimeout(() => {
         generateColors();
       }, 1500);
     } else {
-      setResult(Result.Wrong);
+      setGame((game) => ({
+        ...game,
+        correct: false,
+        result: false,
+        guesses: game.guesses + 1,
+      }));
     }
-    setGuesses(guesses + 1);
-    if (score > COLOR_GUESSES - 1) {
-      setStatus(Status.GameOver);
-    }
-    console.log(color, answers, status, score, guesses, averageCorrect);
+  }
+
+  function restartGame() {
+    generateColors();
+    setGame({
+      ...game,
+      started: true,
+      correct: false,
+      result: undefined,
+      disabled: false,
+      guesses: 0,
+      score: 0,
+      average: 0,
+    });
   }
 
   return (
-    <div className="App">
+    <div className="hex-color-game">
       <h1>Color guess</h1>
       <p>
-        Score: {score} / Guesses: {guesses} / Average correct: {averageCorrect}%
+        Score: {game.score} / Guesses: {game.guesses} / Average correct:{" "}
+        {game.average}%
       </p>
-      <div className="guess-me" style={{ background: color }}>
-        {result != undefined && (
+      <div className="guess-me" style={{ background: game.color }}>
+        {game.result != undefined && (
           <div className="results">
-            <div className="error">
-              {result == Result.Wrong && status == Status.Started && (
+            {game.result == false && game.started == true && (
+              <div className="error">
                 <p>
                   ❌<br />
                   Wrong!
                 </p>
-              )}
-            </div>
-            <div className="correct">
-              {result == Result.Correct && status == Status.Started && (
+              </div>
+            )}
+            {game.result == true && game.started == true && (
+              <div className="correct">
                 <p>
                   ✅<br />
                   Correct!
                 </p>
-              )}
-            </div>
-            <div className="gameover">
-              {status == Status.GameOver && (
-                <p>
-                  Game over!
-                  <br />
-                  You scored a {averageCorrect}%!
-                </p>
-              )}
-            </div>
+              </div>
+            )}
+            {game.started == false && (
+              <div className="gameover">
+                <>
+                  <p>
+                    Game over!
+                    <br />
+                    You scored {game.average}%!
+                  </p>
+                  <button onClick={() => restartGame()}>Play again?</button>
+                </>
+              </div>
+            )}
           </div>
         )}
       </div>
 
       <div className="choices" ref={parent}>
         {answers.map((answer) => (
-          <button onClick={() => handleAnswersClicked(answer)} key={answer}>
+          <button
+            onClick={() => handleAnswersClicked(answer)}
+            key={answer}
+            disabled={game.disabled}
+          >
             {answer}
           </button>
         ))}
