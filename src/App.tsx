@@ -117,7 +117,7 @@ function App() {
         <span>o</span>
         <span>l</span>
         <span>o</span>
-        <span>r</span> guess
+        <span>r</span> #guess
       </h1>
       <p>
         You'll be given 10 colors to guess it's hex value, try to get the
