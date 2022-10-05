@@ -396,6 +396,11 @@ debug@^4.1.0:
   dependencies:
     ms "2.1.2"
 
+devtools-detect@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/devtools-detect/-/devtools-detect-4.0.0.tgz#a5bf7f990df093ba231a37ed301ec9ba157ecafb"
+  integrity sha512-BnCKIj1DDWite4sml9z8baFlkZWdtFH0rl1+HcBZ6ORm3HG7JSuehQUVzdOUxbPDLLVmEVuqkrvy3y8y2GOXyQ==
+
 electron-to-chromium@^1.4.251:
   version "1.4.270"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.270.tgz#2c6ea409b45cdb5c3e0cb2c08cf6c0ba7e0f2c26"

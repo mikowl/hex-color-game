@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 // import autoAnimate from '@formkit/auto-animate';
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import devtools from "devtools-detect";
 
 import "./App.css";
 
@@ -65,12 +66,22 @@ function App() {
   useEffect(() => {
     setGame((game) => ({
       ...game,
-      average:
-        game.guesses === 0 ? 0 : Math.round((game.score / game.guesses) * 100),
+      average: game.guesses === 0 ? 0 : ~~((game.score / game.guesses) * 100),
     }));
   }, [game.guesses, game.color]);
 
+  function cheatDetector() {
+    const element = new Image();
+    Object.defineProperty(element, "id", {
+      get: function () {
+        console.log("%c", element);
+      },
+    });
+    console.log("%c", element);
+  }
   function handleAnswersClicked(answer: string) {
+    console.log("Is DevTools open:", devtools.isOpen);
+
     if (answer === game.color) {
       setGame((game) => ({
         ...game,
@@ -158,6 +169,8 @@ function App() {
                     You scored {game.average}%!
                   </p>
                   {game.average >= 80 && <p>Amazing, you get 🍰!</p>}
+                  {game.average >= 70 && <p>Not bad! You almost get</p>}
+                  {game.average <= 30 && <p>I'm not mad, just disappointed.</p>}
                   <button onClick={() => restartGame()}>Play again?</button>
                 </>
               </div>
@@ -177,6 +190,7 @@ function App() {
           </button>
         ))}
       </div>
+      {devtools.isOpen && <p>👀 You're not trying to cheat are you?</p>}
     </div>
   );
 }
