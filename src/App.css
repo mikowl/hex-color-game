@@ -20,11 +20,13 @@
 
 .hex-color-game {
   width: 100%;
+  max-width: 460px;
 }
+
 .hex-color-game button {
   font-family: "Courier New", Courier, monospace;
   font-weight: 600;
-  flex-basis: 48%;
+  flex-basis: 47%;
   background: #535bf2;
   padding: 0.5em 1em 0.5em 1em;
   border-radius: 7px;
@@ -94,7 +96,4 @@
   }
 }
 @media screen and (min-width: 768px) {
-  .hex-color-game {
-    max-width: 440px;
-  }
 }
