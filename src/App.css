@@ -34,6 +34,22 @@
   margin-top: 0;
 }
 
+.hex-color-game h1 span:nth-child(1) {
+  color: #a8e69d;
+}
+.hex-color-game h1 span:nth-child(2) {
+  color: #dcedc1;
+}
+.hex-color-game h1 span:nth-child(3) {
+  color: #ffd3b6;
+}
+.hex-color-game h1 span:nth-child(4) {
+  color: #ffaaa5;
+}
+
+.hex-color-game h1 span:nth-child(5) {
+  color: #ff8b94;
+}
 .choices {
   display: flex;
   justify-content: space-between;

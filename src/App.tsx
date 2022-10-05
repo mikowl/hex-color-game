@@ -109,7 +109,18 @@ function App() {
 
   return (
     <div className="hex-color-game">
-      <h1>Color guess</h1>
+      <h1>
+        <span>C</span>
+        <span>o</span>
+        <span>l</span>
+        <span>o</span>
+        <span>r</span> guess
+      </h1>
+      <p>
+        You'll be given 10 colors to guess, your goal is to get the highest
+        percent possible. <br />
+        OMG SO MUCH FUN!
+      </p>
       <p>
         Score: {game.score} / Guesses: {game.guesses} / Average correct:{" "}
         {game.average}%
