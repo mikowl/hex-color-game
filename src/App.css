@@ -89,7 +89,17 @@
   font-size: 1rem;
   margin-top: 1rem;
 }
-
+.rnbw {
+  font-size: 0.5rem;
+  letter-spacing: 0.5rem;
+  display: inline-block;
+  position: fixed;
+  top: -10px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  filter: hue-rotate(-50deg) grayscale(0.2) opacity(0.9);
+}
 @media screen and (min-width: 482px) {
   .hex-color-game button {
     flex-basis: auto;

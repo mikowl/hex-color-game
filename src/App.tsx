@@ -109,6 +109,7 @@ function App() {
 
   return (
     <div className="hex-color-game">
+      <span className="rnbw">🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣</span>
       <h1>
         <span>C</span>
         <span>o</span>
