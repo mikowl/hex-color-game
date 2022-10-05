@@ -119,5 +119,21 @@
     flex-basis: auto;
   }
 }
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 400px) {
+  .dashboard {
+    font-size: 0.875rem;
+  }
+  .hex-color-game h1 {
+    font-size: 12vw;
+    margin-top: 0.5rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  p {
+    font-size: 0.9375rem;
+    line-height: 1.4;
+  }
+  .dashboard {
+    font-size: 12px;
+  }
 }
