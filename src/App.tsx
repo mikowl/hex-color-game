@@ -120,15 +120,15 @@ function App() {
         <span>r</span> guess
       </h1>
       <p>
-        You'll be given 10 colors to guess, your goal is to get the highest
-        percentage possible.
+        You'll be given 10 colors to guess it's hex value, try to get the
+        highest percentage possible.
       </p>
       <p>
         <strong>OMG SO MUCH FUN!</strong>
       </p>
-      <p>
+      <p className="dashboard">
         Score: {game.score} / Guesses: {game.guesses} / Average correct:{" "}
-        {game.average}%
+        <strong className="avg">{game.average}%</strong>
       </p>
       <div className="guess-me" style={{ background: game.color }}>
         {game.result != undefined && (
