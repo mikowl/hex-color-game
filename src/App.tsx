@@ -22,7 +22,7 @@ interface Game {
 }
 
 function App() {
-  const COLOR_GUESSES = 2;
+  const COLOR_GUESSES = 10;
   const [game, setGame] = useState<Game>({
     started: true,
     correct: false,
