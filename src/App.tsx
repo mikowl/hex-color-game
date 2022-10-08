@@ -138,7 +138,7 @@ function App() {
         <strong>OMG SO MUCH FUN!</strong>
       </p>
       <p className="dashboard">
-        Score: {game.score} / Guesses: {game.guesses} / Average correct:{" "}
+        Colors left: {10 - game.score} / Guesses: {game.guesses} / Score:{" "}
         <strong className="avg">{game.average}%</strong>
       </p>
       <div className="guess-me" style={{ background: game.color }}>
@@ -166,10 +166,10 @@ function App() {
                   <p>
                     Game over!
                     <br />
-                    You scored {game.average}%!
+                    You scored {game.average}%
                   </p>
                   {game.average >= 80 && <p>Amazing, you get 🍰!</p>}
-                  {game.average >= 70 && <p>Not bad! You almost get</p>}
+                  {game.average >= 70 && <p>Not bad! You almost get 🍰</p>}
                   {game.average <= 30 && <p>I'm not mad, just disappointed.</p>}
                   <button onClick={() => restartGame()}>Play again?</button>
                 </>
