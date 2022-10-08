@@ -22,7 +22,7 @@ interface Game {
 }
 
 function App() {
-  const COLOR_GUESSES = 10;
+  const COLOR_GUESSES = 2;
   const [game, setGame] = useState<Game>({
     started: true,
     correct: false,
@@ -138,8 +138,8 @@ function App() {
         <strong>OMG SO MUCH FUN!</strong>
       </p>
       <p className="dashboard">
-        Colors left: {10 - game.score} / Guesses: {game.guesses} / Score:{" "}
-        <strong className="avg">{game.average}%</strong>
+        Colors left: {COLOR_GUESSES - game.score} / Guesses: {game.guesses} /
+        Score: <strong className="avg">{game.average}%</strong>
       </p>
       <div className="guess-me" style={{ background: game.color }}>
         {game.result != undefined && (
@@ -168,9 +168,26 @@ function App() {
                     <br />
                     You scored {game.average}%
                   </p>
-                  {game.average >= 80 && <p>Amazing, you get 🍰!</p>}
-                  {game.average >= 70 && <p>Not bad! You almost get 🍰</p>}
-                  {game.average <= 30 && <p>I'm not mad, just disappointed.</p>}
+                  <div className="critique">
+                    {game.average >= 80 ? (
+                      <p>Amazing, you get 🍰!</p>
+                    ) : game.average >= 70 ? (
+                      <p>Pretty good! You almost get 🍰</p>
+                    ) : game.average >= 60 ? (
+                      <p>Not bad!</p>
+                    ) : game.average >= 50 ? (
+                      <p>Could be better!</p>
+                    ) : game.average >= 40 ? (
+                      <p>Not good!</p>
+                    ) : game.average >= 30 ? (
+                      <p>Not good at all!</p>
+                    ) : game.average >= 20 ? (
+                      <p>Are you even trying?</p>
+                    ) : (
+                      <p>Are you even trying?</p>
+                    )}
+                  </div>
+
                   <button onClick={() => restartGame()}>Play again?</button>
                 </>
               </div>

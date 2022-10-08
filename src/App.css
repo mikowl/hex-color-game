@@ -96,13 +96,17 @@
   color: #76970a;
 }
 .results .gameover {
-  color: rgb(99, 21, 87);
+  color: #2b2b2b;
 }
 
 .gameover button {
   font-family: "Sen", Helvetica, Arial, sans-serif;
   font-size: 1rem;
   margin-top: 1rem;
+}
+.critique {
+  margin-top: 0.5rem;
+  color: rgb(99, 21, 87);
 }
 .rnbw {
   font-size: 2.9vw;
