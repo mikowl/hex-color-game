@@ -39,7 +39,7 @@ function App() {
   const [parent] = useAutoAnimate<HTMLDivElement>();
 
   const generateColors = () => {
-    if (game.score < COLOR_GUESSES - 10) {
+    if (game.score < COLOR_GUESSES - 1) {
       const actualColor = generateRandomHexColor();
       setGame((game) => ({
         ...game,
