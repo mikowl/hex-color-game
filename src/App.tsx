@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 // import autoAnimate from '@formkit/auto-animate';
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import devtools from "devtools-detect";
+import confetti from "canvas-confetti";
 
 import "./App.css";
 
@@ -22,7 +23,7 @@ interface Game {
 }
 
 function App() {
-  const COLOR_GUESSES = 2;
+  const COLOR_GUESSES = 10;
   const [game, setGame] = useState<Game>({
     started: true,
     correct: false,
@@ -118,6 +119,24 @@ function App() {
     });
   }
 
+  function omgConfetti() {
+    confetti({
+      particleCount: 150,
+      startVelocity: 50,
+      spread: 360,
+      shapes: ["circle"],
+      disableForReducedMotion: true,
+      colors: [
+        "#742061",
+        "#c27c69",
+        "#c27b6a",
+        "#61561f",
+        "#084b4e",
+        "#0058af",
+      ],
+    });
+  }
+
   return (
     <div className="hex-color-game">
       <span className="rnbw">
@@ -168,6 +187,7 @@ function App() {
                     <br />
                     You scored {game.average}%
                   </p>
+                  {game.average >= 70 && omgConfetti()}
                   <div className="critique">
                     {game.average >= 80 ? (
                       <p>Amazing, you get 🍰!</p>
