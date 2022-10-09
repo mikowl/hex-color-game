@@ -187,8 +187,8 @@ function App() {
                     <br />
                     You scored {game.average}%
                   </p>
+                  {game.average >= 70 && omgConfetti()}
                   <div className="critique">
-                    {game.average >= 70 && omgConfetti()}
                     {game.average >= 80 ? (
                       <p>Amazing, you get 🍰!</p>
                     ) : game.average >= 70 ? (
