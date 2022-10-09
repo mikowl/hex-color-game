@@ -30,10 +30,15 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  opacity: 0;
+  transform: all 0.3s ease-in-out;
 }
+
 body.fontLoaded {
   font-family: "Sen", Helvetica, Arial, sans-serif;
+  opacity: 1;
 }
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
