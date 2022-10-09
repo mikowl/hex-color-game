@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@formkit/auto-animate": "^1.0.0-beta.3",
+    "canvas-confetti": "^1.5.1",
     "devtools-detect": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
