@@ -4,8 +4,6 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import devtools from "devtools-detect";
 import confetti from "canvas-confetti";
 
-import "./App.css";
-
 const generateRandomHexColor = () =>
   `#${Math.floor(Math.random() * 0xffffff)
     .toString(16)
