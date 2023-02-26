@@ -53,15 +53,22 @@ h1 {
   padding: 0.5em 1em 0.5em 1em;
   border-radius: 7px;
   cursor: pointer;
-  border: none;
-  outline: 2px solid transparent;
+  border: 2px solid transparent;
+  /* outline: 2px solid transparent; */
   transition: all 0.3s ease-in-out;
 }
-.hex-color-game button:hover,
 .hex-color-game button:focus,
 .hex-color-game button:active {
   background: #484fde;
-  outline: 2px solid #dcedc1;
+  border: 2px solid #dcedc1;
+}
+
+.hex-color-game button.wrong-choice-bruv {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: #ff8b94;
+  color: #2b2b2b;
+  border: 2px solid #ff8b94;
 }
 
 .guess-me {
@@ -167,6 +174,15 @@ h1 {
   right: 0;
   width: 100%;
   filter: hue-rotate(-50deg) grayscale(0.2) opacity(0.9);
+  animation: rnbw-animation 1.5s ease-in-out infinite alternate;
+}
+@keyframes rnbw-animation {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(6px);
+  }
 }
 @media screen and (min-width: 482px) {
   .hex-color-game button {

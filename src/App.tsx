@@ -75,7 +75,7 @@ function App() {
 		});
 		console.log("%c", element);
 	}
-	function handleAnswersClicked(answer: string) {
+	function handleAnswersClicked(event, answer: string) {
 		if (answer === game.color) {
 			setGame((game) => ({
 				...game,
@@ -89,6 +89,8 @@ function App() {
 				generateColors();
 			}, 1500);
 		} else {
+			event.target.className = "wrong-choice-bruv";
+
 			setGame((game) => ({
 				...game,
 				correct: false,
@@ -199,7 +201,7 @@ function App() {
 
 			<div className="choices" ref={parent}>
 				{answers.map((answer) => (
-					<button onClick={() => handleAnswersClicked(answer)} key={answer} disabled={game.disabled}>
+					<button onClick={() => handleAnswersClicked(event, answer)} key={answer} disabled={game.disabled}>
 						{answer}
 					</button>
 				))}
