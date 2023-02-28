@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import autoAnimate from '@formkit/auto-animate';
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import devtools from "devtools-detect";
 import confetti from "canvas-confetti";
@@ -75,7 +74,7 @@ function App() {
 		});
 		console.log("%c", element);
 	}
-	function handleAnswersClicked(event, answer: string) {
+	function handleAnswersClicked(answer: string) {
 		if (answer === game.color) {
 			setGame((game) => ({
 				...game,
@@ -89,8 +88,6 @@ function App() {
 				generateColors();
 			}, 1500);
 		} else {
-			event.target.className = "wrong-choice-bruv";
-
 			setGame((game) => ({
 				...game,
 				correct: false,
@@ -201,7 +198,15 @@ function App() {
 
 			<div className="choices" ref={parent}>
 				{answers.map((answer) => (
-					<button onClick={() => handleAnswersClicked(event, answer)} key={answer} disabled={game.disabled}>
+					<button
+						onClick={(e) => {
+							handleAnswersClicked(answer);
+							const target = e.target as HTMLButtonElement;
+							target.className = "wrong-choice-bruv";
+						}}
+						key={answer}
+						disabled={game.disabled}
+					>
 						{answer}
 					</button>
 				))}
