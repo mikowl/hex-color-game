@@ -93,7 +93,7 @@ function App() {
 			}));
 			setTimeout(() => {
 				if (COLOR_GUESSES - 1 === game.score) {
-					setGame({ ...game, started: false, disabled: true });
+					setGame((game) => ({ ...game, started: false, disabled: true }));
 					return;
 				}
 				setGame((game) => ({
