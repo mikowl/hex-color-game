@@ -50,17 +50,19 @@ h1 {
   flex-basis: 47%;
   background: #535bf2;
   color: #fff;
-  padding: 0.5em 1em 0.5em 1em;
+  padding: 0.5em 1.125em 0.5em 1.125em;
   border-radius: 7px;
   cursor: pointer;
-  border: 2px solid transparent;
+  border: none;
+  overflow: hidden;
   /* outline: 2px solid transparent; */
   transition: all 0.3s ease-in-out;
 }
 .hex-color-game button:focus,
 .hex-color-game button:active {
   background: #484fde;
-  border: 2px solid #dcedc1;
+  /* outline: 2px solid #dcedc1; */
+  box-shadow: 0 0 0 2px #dcedc1;
 }
 
 .hex-color-game button.wrong-choice-bruv {
@@ -68,7 +70,7 @@ h1 {
   cursor: not-allowed;
   background: #ff8b94;
   color: #2b2b2b;
-  border: 2px solid #ff8b94;
+  /* border: 2px solid #ff8b94; */
 }
 
 .guess-me {
@@ -129,6 +131,23 @@ h1 {
   column-gap: 10px;
   row-gap: 20px;
   width: 100%;
+}
+.color-helper {
+  display: flex;
+  width: calc(100% + 36px);
+  border-radius: 0 0 7px 7px;
+  flex-direction: row;
+  flex-basis: auto;
+  margin: 0;
+  transform: translate(-18px, 8px);
+}
+.color-helper span {
+  flex-grow: 1;
+  width: 33%;
+  height: 10px;
+  /* 3 columns */
+  justify-content: space-between;
+  align-items: center;
 }
 
 .results {

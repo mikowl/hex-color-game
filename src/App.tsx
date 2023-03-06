@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import parse from "html-react-parser";
 import devtools from "devtools-detect";
 import confetti from "canvas-confetti";
 
@@ -20,7 +21,7 @@ interface Game {
 }
 
 function App() {
-	const COLOR_GUESSES = 3;
+	const COLOR_GUESSES = 10;
 	const initialGame: Game = {
 		started: true,
 		correct: false,
@@ -37,6 +38,24 @@ function App() {
 	const [answers, setAnswers] = useState<string[]>([]);
 	const [color, setColor] = useState<string>("");
 	const [parent] = useAutoAnimate<HTMLDivElement>();
+
+	function hexToRgb(hex: string): string {
+		// Remove the # symbol from the beginning of the hex string
+		hex = hex.replace("#", "");
+
+		// Convert the hex values to decimal
+		const r = parseInt(hex.substring(0, 2), 16);
+		const g = parseInt(hex.substring(2, 4), 16);
+		const b = parseInt(hex.substring(4, 6), 16);
+
+		// Create HTML elements to display the color representation of each RGB value
+		const red = `<span style="background: rgb(${r}, 0, 0)}"></span>`;
+		const green = `<span style="background: rgb(0, ${g}, 0)"></span>`;
+		const blue = `<span style="background: rgb(0, 0, ${b})"></span>`;
+
+		// Return the RGB values and color representation in HTML format
+		return `${red}${green}${blue}`;
+	}
 
 	const generateColors = () => {
 		const actualColor = generateRandomHexColor();
@@ -191,19 +210,22 @@ function App() {
 
 			<div className="choices" ref={parent}>
 				{answers.map((answer) => (
-					<button
-						onClick={(e) => {
-							handleAnswersClicked(answer);
-							const target = e.target as HTMLButtonElement;
-							// disable current button
-							target.disabled = true;
-							target.className = "wrong-choice-bruv";
-						}}
-						key={answer}
-						disabled={game.disabled}
-					>
-						{answer}
-					</button>
+					<Fragment key={answer}>
+						<button
+							onClick={(e) => {
+								handleAnswersClicked(answer);
+								const target = e.target as HTMLButtonElement;
+								// disable current button
+								target.disabled = true;
+								target.className = "wrong-choice-bruv";
+							}}
+							key={answer}
+							disabled={game.disabled}
+						>
+							{answer}
+							<p className="color-helper">{parse(hexToRgb(answer))}</p>
+						</button>
+					</Fragment>
 				))}
 			</div>
 			{devtools.isOpen && <p>👀 You're not trying to cheat are you?</p>}

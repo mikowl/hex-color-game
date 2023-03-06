@@ -13,6 +13,7 @@
     "@types/canvas-confetti": "^1.6.0",
     "canvas-confetti": "^1.6.0",
     "devtools-detect": "^4.0.1",
+    "html-react-parser": "^3.0.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
