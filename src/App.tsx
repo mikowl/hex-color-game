@@ -101,17 +101,18 @@ function App() {
 	}
 
 	function restartGame() {
-		generateColors();
+		// reset game
 		setGame({
-			...game,
 			started: true,
 			correct: false,
 			result: undefined,
 			disabled: false,
 			guesses: 0,
 			score: 0,
+			color: "",
 			average: 0,
 		});
+		generateColors();
 	}
 
 	function omgConfetti() {
