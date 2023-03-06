@@ -103,6 +103,7 @@ function App() {
 	function restartGame() {
 		// reset game
 		setGame({
+			...game,
 			started: true,
 			correct: false,
 			result: undefined,
