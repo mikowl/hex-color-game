@@ -20,8 +20,8 @@ interface Game {
 }
 
 function App() {
-	const COLOR_GUESSES = 10;
-	const [game, setGame] = useState<Game>({
+	const COLOR_GUESSES = 3;
+	const initialGame: Game = {
 		started: true,
 		correct: false,
 		result: undefined,
@@ -30,31 +30,25 @@ function App() {
 		score: 0,
 		color: "",
 		average: 0,
-	});
+	};
+
+	const [game, setGame] = useState<Game>({ ...initialGame });
 
 	const [answers, setAnswers] = useState<string[]>([]);
+	const [color, setColor] = useState<string>("");
 	const [parent] = useAutoAnimate<HTMLDivElement>();
 
 	const generateColors = () => {
-		if (game.score < COLOR_GUESSES - 1) {
-			const actualColor = generateRandomHexColor();
-			setGame((game) => ({
-				...game,
-				color: actualColor,
-				result: undefined,
-				disabled: false,
-			}));
-			setAnswers(
-				[
-					actualColor,
-					generateRandomHexColor(),
-					generateRandomHexColor(),
-					generateRandomHexColor(),
-				].sort(() => 0.5 - Math.random())
-			);
-		} else {
-			setGame((game) => ({ ...game, started: false, disabled: true }));
-		}
+		const actualColor = generateRandomHexColor();
+		setColor(actualColor);
+		setAnswers(
+			[
+				actualColor,
+				generateRandomHexColor(),
+				generateRandomHexColor(),
+				generateRandomHexColor(),
+			].sort(() => 0.5 - Math.random())
+		);
 	};
 
 	useEffect(() => {
@@ -66,7 +60,7 @@ function App() {
 			...game,
 			average: game.guesses === 0 ? 0 : ~~((game.score / game.guesses) * 100),
 		}));
-	}, [game.guesses, game.color]);
+	}, [game.guesses]);
 
 	function cheatDetector() {
 		const element = new Image();
@@ -77,8 +71,9 @@ function App() {
 		});
 		console.log("%c", element);
 	}
+
 	function handleAnswersClicked(answer: string) {
-		if (answer === game.color) {
+		if (answer === color) {
 			setGame((game) => ({
 				...game,
 				correct: true,
@@ -88,6 +83,15 @@ function App() {
 				disabled: true,
 			}));
 			setTimeout(() => {
+				if (COLOR_GUESSES - 1 === game.score) {
+					setGame({ ...game, started: false, disabled: true });
+					return;
+				}
+				setGame((game) => ({
+					...game,
+					disabled: false,
+					result: undefined,
+				}));
 				generateColors();
 			}, 1500);
 		} else {
@@ -101,19 +105,8 @@ function App() {
 	}
 
 	function restartGame() {
-		// reset game
-		setGame({
-			...game,
-			started: true,
-			correct: false,
-			result: undefined,
-			disabled: false,
-			guesses: 0,
-			score: 0,
-			color: "",
-			average: 0,
-		});
 		generateColors();
+		setGame({ ...initialGame });
 	}
 
 	function omgConfetti() {
@@ -147,10 +140,10 @@ function App() {
 				<strong>OMG SO MUCH FUN!</strong>
 			</p>
 			<p className="dashboard">
-				Colors left: {COLOR_GUESSES - game.score} / Guesses: {game.guesses} / Score:{" "}
+				Colors left: {COLOR_GUESSES - game.score} / Guesses: {game.guesses} / Score: {game.score}{" "}
 				<strong className="avg">{game.average}%</strong>
 			</p>
-			<div className="guess-me" style={{ background: game.color }}>
+			<div className="guess-me" style={{ background: color }}>
 				{game.result != undefined && (
 					<div className="results">
 						{game.result == false && game.started == true && (
@@ -161,7 +154,7 @@ function App() {
 								</p>
 							</div>
 						)}
-						{game.result == true && game.started == true && (
+						{game.result && game.started && (
 							<div className="correct">
 								<p>
 									✅<br />
@@ -169,7 +162,7 @@ function App() {
 								</p>
 							</div>
 						)}
-						{game.started == false && (
+						{!game.started && (
 							<div className="gameover">
 								<>
 									<p>
@@ -177,21 +170,21 @@ function App() {
 										<br />
 										You scored {game.average}%
 									</p>
-									{game.average >= 70 && omgConfetti()}
+									{game.average >= 65 && omgConfetti()}
 									<div className="critique">
-										{game.average >= 70 ? (
+										{game.average >= 60 ? (
 											<p>Amazing, you get 🍰!</p>
-										) : game.average >= 60 ? (
-											<p>Pretty good! You almost get 🍰</p>
 										) : game.average >= 50 ? (
-											<p>Not bad!</p>
+											<p>Pretty good! You almost get 🍰</p>
 										) : game.average >= 40 ? (
-											<p>Could be better!</p>
+											<p>Not bad!</p>
 										) : game.average >= 30 ? (
-											<p>Not good!</p>
+											<p>Could be better!</p>
 										) : game.average >= 20 ? (
-											<p>Not good at all!</p>
+											<p>Not good!</p>
 										) : game.average >= 10 ? (
+											<p>Not good at all!</p>
+										) : game.average >= 5 ? (
 											<p>Are you even trying?</p>
 										) : (
 											<p>Like, what are you doing?</p>
@@ -212,6 +205,8 @@ function App() {
 						onClick={(e) => {
 							handleAnswersClicked(answer);
 							const target = e.target as HTMLButtonElement;
+							// disable current button
+							target.disabled = true;
 							target.className = "wrong-choice-bruv";
 						}}
 						key={answer}
