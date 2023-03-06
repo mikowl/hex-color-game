@@ -62,16 +62,6 @@ function App() {
 		}));
 	}, [game.guesses]);
 
-	function cheatDetector() {
-		const element = new Image();
-		Object.defineProperty(element, "id", {
-			get: function () {
-				console.log("%c", element);
-			},
-		});
-		console.log("%c", element);
-	}
-
 	function handleAnswersClicked(answer: string) {
 		if (answer === color) {
 			setGame((game) => ({
