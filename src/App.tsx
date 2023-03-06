@@ -45,9 +45,12 @@ function App() {
 				disabled: false,
 			}));
 			setAnswers(
-				[actualColor, generateRandomHexColor(), generateRandomHexColor(), generateRandomHexColor()].sort(
-					() => 0.5 - Math.random()
-				)
+				[
+					actualColor,
+					generateRandomHexColor(),
+					generateRandomHexColor(),
+					generateRandomHexColor(),
+				].sort(() => 0.5 - Math.random())
 			);
 		} else {
 			setGame((game) => ({ ...game, started: false, disabled: true }));
@@ -124,7 +127,9 @@ function App() {
 
 	return (
 		<div className="hex-color-game">
-			<span className="rnbw">🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣</span>
+			<span className="rnbw">
+				🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣
+			</span>
 			<h1>
 				<span>C</span>
 				<span>o</span>
@@ -132,7 +137,10 @@ function App() {
 				<span>o</span>
 				<span>r</span> #guess
 			</h1>
-			<p>You'll be given 10 colors to guess it's hex value, try to get the highest percentage possible.</p>
+			<p>
+				You'll be given 10 colors to guess it's hex value, try to get the highest percentage
+				possible.
+			</p>
 			<p>
 				<strong>OMG SO MUCH FUN!</strong>
 			</p>
@@ -169,22 +177,22 @@ function App() {
 									</p>
 									{game.average >= 70 && omgConfetti()}
 									<div className="critique">
-										{game.average >= 80 ? (
+										{game.average >= 70 ? (
 											<p>Amazing, you get 🍰!</p>
-										) : game.average >= 70 ? (
-											<p>Pretty good! You almost get 🍰</p>
 										) : game.average >= 60 ? (
-											<p>Not bad!</p>
+											<p>Pretty good! You almost get 🍰</p>
 										) : game.average >= 50 ? (
-											<p>Could be better!</p>
+											<p>Not bad!</p>
 										) : game.average >= 40 ? (
-											<p>Not good!</p>
+											<p>Could be better!</p>
 										) : game.average >= 30 ? (
-											<p>Not good at all!</p>
+											<p>Not good!</p>
 										) : game.average >= 20 ? (
+											<p>Not good at all!</p>
+										) : game.average >= 10 ? (
 											<p>Are you even trying?</p>
 										) : (
-											<p>Are you even trying?</p>
+											<p>Like, what are you doing?</p>
 										)}
 									</div>
 
